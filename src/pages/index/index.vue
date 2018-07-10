@@ -1,13 +1,13 @@
 <template>
   <div class="container">
-    <button v-if="!hasWxAuth" open-type="getUserInfo" bindgetuserinfo="handleUserInfo">登录</button> 
-    <div class="playground">
+    <button v-if="!hasWxAuth" open-type="getUserInfo" @getuserinfo="handleUserInfo">登录</button> 
+    <div class="playground"  v-if="hasWxAuth">
       <div class="player" v-for="player in players" v-bind:style="{ left: player.left+'vw', top: player.top+'vw' }">
         <img class="player-avatar" v-bind:src="player.avatarUrl">
         <div class="player-nickname"> {{player.nickName}}</div>
       </div>
     </div>
-    <div class="controller">
+    <div class="controller"  v-if="hasWxAuth">
       <div class="panel">
         <div class="dpad-container">
             <div class="dpad-backdrop"></div>
@@ -64,10 +64,11 @@ export default {
       });
     },
 
-    async handleUserInfo({ detail: { encryptedData, iv, userInfo } }) {
+    handleUserInfo({ mp: { detail: { encryptedData, iv, userInfo } } }) {
       if (userInfo) {
-        await this.openSocket();
-        await this.login(userInfo);
+        this.openSocket().then(() => {
+          this.login(userInfo);
+        });
       }
     },
     openSocket() {
