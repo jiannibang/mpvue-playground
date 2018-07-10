@@ -1,10 +1,15 @@
 <template>
-  <div class="container" @click="clickHandle('test click', $event)">
+  <div class="container">
     <button v-if="!hasWxAuth" open-type="getUserInfo" bindgetuserinfo="handleUserInfo">登录</button> 
-    <div class="playground"></div>
+    <div class="playground">
+      <div class="player" v-for="player in players" v-bind:style="{ left: player.left+'vw', top: player.top+'vw' }">
+        <img class="player-avatar" v-bind:src="player.avatarUrl">
+        <div class="player-nickname"> {{player.nickName}}</div>
+      </div>
+    </div>
     <div class="buttons">
       <div></div>
-      <button class="buttons-button" v-on:click="move('top')">上</button>
+      <button class="buttons-button" v-on:click="move('up')">上</button>
       <div></div>
       <button class="buttons-button" v-on:click="move('left')">左</button>
       <button class="buttons-button" v-on:click="move('down')">下</button>
@@ -21,7 +26,8 @@ export default {
     return {
       motto: "Hello World",
       userInfo: {},
-      hasWxAuth: false
+      hasWxAuth: false,
+      players: []
     };
   },
 
@@ -30,7 +36,14 @@ export default {
   },
 
   methods: {
-    move(direction) {},
+    move(direction) {
+      wx.sendSocketMessage({
+        data: JSON.stringify({
+          type: "move",
+          data: { user: this.userInfo, direction: direction }
+        })
+      });
+    },
 
     async handleUserInfo({ detail: { encryptedData, iv, userInfo } }) {
       if (userInfo) {
@@ -42,6 +55,7 @@ export default {
       return new Promise((resolve, reject) => {
         wx.connectSocket({
           url: "wss://archeryscorecalculator.com/wss",
+          // url: "ws://localhost:8080",
           data: {
             x: "",
             y: ""
@@ -65,6 +79,7 @@ export default {
     },
     handleMessage(res) {
       console.log("收到服务器内容：" + res.data);
+      this.players = JSON.parse(res.data);
     },
     async init() {
       this.hasWxAuth = await this.checkWxAuth();
@@ -80,8 +95,9 @@ export default {
     login(userInfo) {
       return new Promise(async resolve => {
         this.hasWxAuth = true;
+        this.userInfo = userInfo;
         wx.sendSocketMessage({
-          data: JSON.stringify(userInfo),
+          data: JSON.stringify({ type: "login", data: userInfo }),
           success: resolve
         });
       });
@@ -129,9 +145,10 @@ export default {
 
 <style scoped>
 .playground {
-  height: 80vh;
+  height: 100vw;
   width: 100vw;
   background: #f5f7f8;
+  position: relative;
 }
 .buttons {
   height: 20vh;
@@ -145,5 +162,18 @@ export default {
   padding-bottom: 28rpx;
   border-radius: 50%;
   margin: auto;
+}
+.player {
+  position: absolute;
+}
+.player-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.player-nickname {
+  width: 40px;
+  font-size: 13px;
+  text-align: center;
 }
 </style>
