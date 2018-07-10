@@ -31,6 +31,7 @@ export default {
 
   methods: {
     move(direction) {},
+
     async handleUserInfo({ detail: { encryptedData, iv, userInfo } }) {
       if (userInfo) {
         await this.openSocket();
@@ -59,7 +60,11 @@ export default {
           reject();
           console.log("WebSocket连接打开失败，请检查！");
         });
+        wx.onSocketMessage(this.handleMessage);
       });
+    },
+    handleMessage(res) {
+      console.log("收到服务器内容：" + res.data);
     },
     async init() {
       this.hasWxAuth = await this.checkWxAuth();
@@ -75,9 +80,10 @@ export default {
     login(userInfo) {
       return new Promise(async resolve => {
         this.hasWxAuth = true;
-        let code = await this.getWxcode();
-        this.currentUser = user;
-        resolve(this);
+        wx.sendSocketMessage({
+          data: JSON.stringify(userInfo),
+          success: resolve
+        });
       });
     },
     getWxcode() {
