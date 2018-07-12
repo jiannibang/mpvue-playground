@@ -56,11 +56,45 @@ export default {
 
   methods: {
     move(direction) {
+      let player = this.players.find(
+        player => player.avatarUrl == this.userInfo.avatarUrl
+      );
+      switch (direction) {
+        case "up":
+          player.top -= 10;
+          if (player.top < 0) {
+            player.top = 0;
+          }
+          break;
+        case "down":
+          player.top += 10;
+          if (player.top > 90) {
+            player.top = 90;
+          }
+          break;
+        case "left":
+          player.left -= 10;
+          if (player.left < 0) {
+            player.left = 0;
+          }
+          break;
+        case "right":
+          player.left += 10;
+          if (player.left > 90) {
+            player.left = 90;
+          }
+          break;
+        default:
+          break;
+      }
       wx.sendSocketMessage({
         data: JSON.stringify({
           type: "move",
           data: { user: this.userInfo, direction: direction }
-        })
+        }),
+        fail: () => {
+          this.openSocket();
+        }
       });
     },
 
@@ -103,7 +137,21 @@ export default {
     },
     handleMessage(res) {
       console.log("收到服务器内容：" + res.data);
-      this.players = JSON.parse(res.data);
+      let changedPlayers = JSON.parse(res.data);
+      let playersMap = this.players.reduce((map, next) => {
+        map[next.avatarUrl] = next;
+        return map;
+      }, {});
+      changedPlayers.forEach(changedPlayer => {
+        if (playersMap[changedPlayer.avatarUrl]) {
+          for (let property in playersMap[changedPlayer.avatarUrl]) {
+            playersMap[changedPlayer.avatarUrl][property] =
+              changedPlayer[property];
+          }
+        } else {
+          this.players.push(changedPlayer);
+        }
+      });
     },
     async init() {
       this.hasWxAuth = await this.checkWxAuth();
@@ -201,12 +249,12 @@ export default {
   position: absolute;
 }
 .player-avatar {
-  width: 40px;
-  height: 40px;
+  width: 10vw;
+  height: 10vw;
   border-radius: 50%;
 }
 .player-nickname {
-  width: 40px;
+  width: 10vw;
   font-size: 13px;
   text-align: center;
 }
