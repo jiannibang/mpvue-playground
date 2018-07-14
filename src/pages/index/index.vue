@@ -268,18 +268,18 @@ export default {
 }
 
 .controller {
-  height: 280px;
+  height: calc((95vh - 100vw) / 0.7);
   position: absolute;
-  width: 490px;
-  transform: scale(0.8);
+  width: calc(100vw / 0.7);
+  transform: scale(0.7);
   transform-origin: 0 0;
 }
 
 .panel {
   background: #2b3334;
-  height: 280px;
+  height: 100%;
   position: relative;
-  width: 490px;
+  width: 100%;
 }
 
 /* D-PAD */
@@ -578,15 +578,15 @@ export default {
   color: #80d8ff;
 }
 /* Attrbutes*/
-.Container { 
-  height: 40px;
+.Container {
+  height: 5vh;
 }
-.Attrbutes {  
-  font-size: 13px;
+.Attrbutes {
+  font-size: 12px;
   text-align: center;
 }
 .CombatMessages {
-  font-size: 13px;
+  font-size: 12px;
   text-align: center;
 }
 </style>
