@@ -2,10 +2,18 @@
   <div class="container">
     <button v-if="!hasWxAuth" open-type="getUserInfo" @getuserinfo="handleUserInfo">登录</button> 
     <div class="playground"  v-if="hasWxAuth">
-      <div class="player" v-for="player in players" v-bind:style="{ left: player.left+'vw', top: player.top+'vw' }">
+      <div class="player" v-for="player in players" v-bind:style="{ left: player.left+'vw', top: player.top+'vw' }" :key="player.left">
         <img class="player-avatar" v-bind:src="player.avatarUrl">
         <div class="player-nickname"> {{player.nickName}}</div>
       </div>
+    </div>
+    <div class="Container" v-for="player in players" :key="player.left">
+        <div class="CombatMessages" v-if="player.avatarUrl == userInfo.avatarUrl">
+          {{player.combatMessage}}
+        </div>
+        <div class="Attrbutes" v-if="player.avatarUrl == userInfo.avatarUrl">
+          HP:{{player.HP}}    ATK:{{player.ATK}}    DEF:{{player.DEF}}
+        </div>
     </div>
     <div class="controller"  v-if="hasWxAuth">
       <div class="panel">
@@ -29,7 +37,7 @@
             </div>
             <div class="dpad dpad-center"></div>
         </div>
-      </div>
+      </div>      
     </div>
   </div>
 </template>
@@ -108,8 +116,8 @@ export default {
     openSocket() {
       return new Promise((resolve, reject) => {
         wx.connectSocket({
-          url: "wss://archeryscorecalculator.com/wss",
-          // url: "ws://localhost:8080",
+          //url: "wss://archeryscorecalculator.com/wss",
+          url: "ws://localhost:8080",
           data: {
             x: "",
             y: ""
@@ -568,5 +576,17 @@ export default {
 .label-music-off,
 .label-sound-off {
   color: #80d8ff;
+}
+/* Attrbutes*/
+.Container { 
+  height: 40px;
+}
+.Attrbutes {  
+  font-size: 13px;
+  text-align: center;
+}
+.CombatMessages {
+  font-size: 13px;
+  text-align: center;
 }
 </style>
