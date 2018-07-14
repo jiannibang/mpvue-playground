@@ -116,8 +116,8 @@ export default {
     openSocket() {
       return new Promise((resolve, reject) => {
         wx.connectSocket({
-          //url: "wss://archeryscorecalculator.com/wss",
-          url: "ws://localhost:8080",
+          url: "wss://archeryscorecalculator.com/wss",
+          //url: "ws://localhost:8080",
           data: {
             x: "",
             y: ""
