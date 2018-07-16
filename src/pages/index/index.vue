@@ -7,11 +7,11 @@
         <div class="player-nickname"> {{player.nickName}}</div>
       </div>
     </div>
-    <div class="Container" v-for="player in players" :key="player.left">
-        <div class="CombatMessages" v-if="player.avatarUrl == userInfo.avatarUrl">
+    <div class="Container" v-for="player in players" :key="player.left"  v-if="player.avatarUrl == userInfo.avatarUrl">
+        <div class="CombatMessages">
           {{player.combatMessage}}
         </div>
-        <div class="Attrbutes" v-if="player.avatarUrl == userInfo.avatarUrl">
+        <div class="Attrbutes">
           HP:{{player.HP}}    ATK:{{player.ATK}}    DEF:{{player.DEF}}
         </div>
     </div>
@@ -117,7 +117,7 @@ export default {
       return new Promise((resolve, reject) => {
         wx.connectSocket({
           url: "wss://archeryscorecalculator.com/wss",
-          //url: "ws://localhost:8080",
+          // url: "ws://localhost:8080",
           data: {
             x: "",
             y: ""
