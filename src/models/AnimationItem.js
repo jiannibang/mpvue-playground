@@ -3,7 +3,7 @@ export default class AnimationItem {
     this.ctx = ctx;
     this.level = level;
     this.frameCycle = 1;
-    this.framesPerMovement = 30;
+    this.framesPerMovement = 20;
     this.directions = {
       up: { x: 0, y: -1 },
       down: { x: 0, y: 1 },

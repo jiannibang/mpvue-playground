@@ -12,7 +12,7 @@ import Ghost from "@/models/Ghost";
 import AnimationItem from "@/models/AnimationItem";
 import level from "@/models/level";
 import level2 from "@/models/level2";
-import gamepad from "@/components/gamepad";
+import { EventBus } from "@/models/event-bus";
 
 export default {
   data() {
@@ -27,7 +27,6 @@ export default {
       background: null
     };
   },
-  components: { gamepad },
   computed: {
     ctx() {
       return wx.createCanvasContext("pacman");
@@ -123,7 +122,7 @@ export default {
         if (this.pac.powerMode) {
           ghostCollisions.forEach(ghost => ghost.retreat());
         } else {
-          this.decrementProperty("lives");
+          this.lives--;
           this.restart();
         }
       }
@@ -169,12 +168,12 @@ export default {
     restartLevel: function() {
       this.pac.restart(this.level);
       this.level.restart();
-    },
-
-    handleTaped(direction) {
-      console.log(direction);
-      this.pac.intent = direction;
     }
+  },
+  created() {
+    EventBus.$on("padTapped", direction => {
+      this.pac.intent = direction;
+    });
   }
 };
 </script>
