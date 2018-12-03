@@ -6,8 +6,8 @@ export default class Ghost extends MoveableItem {
     this.x = startingX;
     this.y = startingY;
     this.pac = pac;
-    this.startingX = 0;
-    this.startingY = 0;
+    this.startingX = startingX;
+    this.startingY = startingY;
     this.removed = false;
     this.avatarUrl = `/static/images/mon_${Math.ceil(Math.random() * 3)}.jpg`;
   }
@@ -25,9 +25,8 @@ export default class Ghost extends MoveableItem {
   draw() {
     let x = this.x;
     let y = this.y;
-    let radiusDivisor = 2;
-
     this.drawPicture(x, y, this.avatarUrl, this.direction);
+    // let radiusDivisor = 2;
     // this.drawCircle(x, y, radiusDivisor, this.direction, "#F55");
   }
   changeDirection() {

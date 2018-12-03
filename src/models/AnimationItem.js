@@ -37,6 +37,8 @@ export default class AnimationItem {
   }
   offsetFor(coordinate, direction) {
     let frameRatio = this.frameCycle / this.framesPerMovement;
-    return this.directions[direction][coordinate] * frameRatio;
+    return frameRatio || direction == "stopped"
+      ? this.directions[direction][coordinate] * frameRatio
+      : 0;
   }
 }

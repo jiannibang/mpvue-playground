@@ -24,7 +24,8 @@ export default {
       pac: null,
       ghosts: [],
       level: null,
-      background: null
+      background: null,
+      loopSwitch: true
     };
   },
   computed: {
@@ -127,7 +128,9 @@ export default {
         }
       }
       this.ctx.draw();
-      setTimeout(this.loop, 1000 / 60);
+      if (this.loopSwitch) {
+        setTimeout(this.loop, 1000 / 60);
+      }
     },
 
     detectGhostCollisions() {
@@ -173,6 +176,15 @@ export default {
   created() {
     EventBus.$on("padTapped", direction => {
       this.pac.intent = direction;
+    });
+    EventBus.$on("pageChange", status => {
+      console.log(this);
+      if (status == "show") {
+        this.loopSwitch = true;
+        this.loop();
+      } else {
+        this.loopSwitch = false;
+      }
     });
   }
 };

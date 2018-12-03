@@ -19,14 +19,13 @@ export default class Pac extends MoveableItem {
   draw() {
     let x = this.x;
     let y = this.y;
-    let radiusDivisor = 2;
-    let color = this.powerMode ? "#AF0" : "#FE0";
     if (this.powerMode) {
       this.drawPicture(x, y, "/static/images/role_mega.jpg", this.direction);
     } else {
       this.drawPicture(x, y, "/static/images/role.jpg", this.direction);
     }
-
+    // let radiusDivisor = 2;
+    // let color = this.powerMode ? "#AF0" : "#FE0";
     // this.drawCircle(x, y, radiusDivisor, this.direction, color);
   }
 

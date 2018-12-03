@@ -71,7 +71,12 @@ export default {
     card,
     pacman
   },
-
+  onHide() {
+    EventBus.$emit("pageChange", "hide");
+  },
+  onShow() {
+    EventBus.$emit("pageChange", "show");
+  },
   methods: {
     emitTapEvent(direction) {
       EventBus.$emit("padTapped", direction);

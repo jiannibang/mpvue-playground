@@ -15,7 +15,6 @@ export default {
       y: 0
     }
   ],
-  squareSize: 60,
   layout: [
     [2, 2, 2, 2, 2, 2, 2, 2, 2],
     [2, 1, 1, 2, 1, 2, 1, 1, 2],
