@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <button v-if="!hasWxAuth" open-type="getUserInfo" @getuserinfo="handleUserInfo">登录</button>
+    <!-- <button v-if="!hasWxAuth" open-type="getUserInfo" @getuserinfo="handleUserInfo">登录</button> -->
     <!-- <div class="playground" v-if="hasWxAuth">
       <div
         class="player"
@@ -22,7 +22,7 @@
       <div class="Attrbutes">HP:{{player.HP}} ATK:{{player.ATK}} DEF:{{player.DEF}}</div>
     </div>-->
     <pacman></pacman>
-    <div class="controller" v-if="hasWxAuth">
+    <div class="controller">
       <div class="panel">
         <div class="dpad-container">
           <div class="dpad-backdrop"></div>

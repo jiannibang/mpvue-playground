@@ -25,8 +25,8 @@ export default class Ghost extends MoveableItem {
     let x = this.x;
     let y = this.y;
     let radiusDivisor = 2;
-    // this.drawPicture(x, y, "/assets/images/bili.jpg", this.direction);
-    this.drawCircle(x, y, radiusDivisor, this.direction, "#F55");
+    this.drawPicture(x, y, "/static/images/bili.jpg", this.direction);
+    // this.drawCircle(x, y, radiusDivisor, this.direction, "#F55");
   }
   changeDirection() {
     let directions = ["left", "right", "up", "down"];

@@ -16,9 +16,7 @@ export default class AnimationItem {
     let squareSize = this.level.squareSize;
     let pixelX = (x + this.offsetFor("x", direction)) * squareSize;
     let pixelY = (y + this.offsetFor("y", direction)) * squareSize;
-    var img = new Image();
-    img.src = src;
-    this.ctx.drawImage(img, pixelX, pixelY, squareSize, squareSize);
+    this.ctx.drawImage(src, pixelX, pixelY, squareSize, squareSize);
   }
   drawCircle(x, y, radiusDivisor, direction, color = "#000") {
     let squareSize = this.level.squareSize;

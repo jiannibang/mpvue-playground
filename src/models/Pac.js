@@ -21,13 +21,13 @@ export default class Pac extends MoveableItem {
     let y = this.y;
     let radiusDivisor = 2;
     let color = this.powerMode ? "#AF0" : "#FE0";
-    // if (this.powerMode) {
-    //   this.drawPicture(x, y, "/assets/images/pangzia.jpg", this.direction);
-    // } else {
-    //   this.drawPicture(x, y, "/assets/images/pangzi.jpg", this.direction);
-    // }
+    if (this.powerMode) {
+      this.drawPicture(x, y, "/static/images/pangzia.jpg", this.direction);
+    } else {
+      this.drawPicture(x, y, "/static/images/pangzi.jpg", this.direction);
+    }
 
-    this.drawCircle(x, y, radiusDivisor, this.direction, color);
+    // this.drawCircle(x, y, radiusDivisor, this.direction, color);
   }
 
   changeDirection() {
