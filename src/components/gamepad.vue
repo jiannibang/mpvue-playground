@@ -1,0 +1,350 @@
+<template>
+  <div class="controller">
+    <div class="panel">
+      <div class="dpad-container">
+        <div class="dpad-backdrop"></div>
+        <div class="dpad dpad-up" @click="$emit('tapped','up')">
+          <div class="arrow-up"></div>
+          <div class="arrow-up2"></div>
+        </div>
+        <div class="dpad dpad-right" @click="$emit('tapped','right')">
+          <div class="arrow-right2"></div>
+          <div class="arrow-right"></div>
+        </div>
+        <div class="dpad dpad-down" @click="$emit('tapped','down')">
+          <div class="arrow-down2"></div>
+          <div class="arrow-down"></div>
+        </div>
+        <div class="dpad dpad-left" @click="$emit('tapped','left')">
+          <div class="arrow-left"></div>
+          <div class="arrow-left2"></div>
+        </div>
+        <div class="dpad dpad-center"></div>
+      </div>
+    </div>
+  </div>
+</template>
+<style lang="less" scoped>
+.controller {
+  height: calc((95vh - 100vw) / 0.7);
+  position: absolute;
+  width: calc(100vw / 0.7);
+  transform: scale(0.7);
+  transform-origin: 0 0;
+}
+
+.panel {
+  background: #2b3334;
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+/* D-PAD */
+
+.dpad-container {
+  bottom: 40px;
+  height: 200px;
+  left: 40px;
+  position: absolute;
+  width: 200px;
+}
+
+.dpad-backdrop {
+  background: #cfd8dc;
+  border-radius: 10px;
+  height: 200px;
+  margin: 0 auto;
+  position: relative;
+  width: 80px;
+}
+
+.dpad-backdrop::after {
+  background: #cfd8dc;
+  border-radius: 10px;
+  content: "";
+  display: block;
+  height: 80px;
+  left: -60px;
+  position: absolute;
+  top: 60px;
+  width: 200px;
+}
+
+.dpad {
+  background: #202020;
+  box-shadow: 0 1px 10px #37474f;
+  height: 60px;
+  position: absolute;
+  width: 60px;
+}
+
+.dpad-up {
+  border-radius: 5px 5px 0 0;
+  bottom: 130px;
+  left: 70px;
+}
+
+.dpad-right {
+  border-radius: 0 5px 5px 0;
+  bottom: 70px;
+  left: 130px;
+}
+
+.dpad-down {
+  border-radius: 0 0 5px 5px;
+  bottom: 10px;
+  left: 70px;
+}
+
+.dpad-left {
+  border-radius: 5px 0 0 5px;
+  bottom: 70px;
+  left: 10px;
+}
+
+.dpad-center {
+  border: #202020 1px solid;
+  border-radius: 1px;
+  bottom: 69px;
+  box-shadow: none;
+  left: 69px;
+}
+
+/* D-PAD arrows */
+
+.arrow-up {
+  border-bottom: 24px solid #455a64;
+  border-left: 24px solid transparent;
+  border-right: 24px solid transparent;
+  height: 0;
+  margin: 20px auto 0;
+  width: 0;
+}
+
+.arrow-up2 {
+  background: #455a64;
+  height: 12px;
+  margin: -2px auto 0;
+  width: 24px;
+}
+
+.arrow-right {
+  border-bottom: 24px solid transparent;
+  border-left: 24px solid #455a64;
+  border-top: 24px solid transparent;
+  height: 0;
+  left: 16px;
+  position: absolute;
+  top: 6px;
+  width: 0;
+}
+
+.arrow-right2 {
+  background: #455a64;
+  height: 24px;
+  margin: 18px 0 0 6px;
+  width: 12px;
+}
+
+.arrow-down {
+  border-left: 24px solid transparent;
+  border-right: 24px solid transparent;
+  border-top: 24px solid #455a64;
+  height: 0;
+  margin: 0 auto;
+  width: 0;
+}
+
+.arrow-down2 {
+  background: #455a64;
+  height: 12px;
+  margin: 6px auto -2px;
+  width: 24px;
+}
+
+.arrow-left {
+  border-bottom: 24px solid transparent;
+  border-right: 24px solid #455a64;
+  border-top: 24px solid transparent;
+  height: 0;
+  margin: 6px 0 0 20px;
+  width: 0;
+}
+
+.arrow-left2 {
+  background: #455a64;
+  height: 24px;
+  margin: 0 auto;
+  position: absolute;
+  right: 6px;
+  top: 18px;
+  width: 12px;
+}
+
+/* Active arrows */
+
+.dpad:active {
+  background-color: #303030;
+}
+
+.dpad:active .arrow-up {
+  border-bottom-color: #ffeb3b;
+}
+
+.dpad:active .arrow-up2 {
+  background-color: #ffeb3b;
+}
+
+.dpad:active .arrow-right {
+  border-left-color: #ffeb3b;
+}
+
+.dpad:active .arrow-right2 {
+  background-color: #ffeb3b;
+}
+
+.dpad:active .arrow-down {
+  border-top-color: #ffeb3b;
+}
+
+.dpad:active .arrow-down2 {
+  background-color: #ffeb3b;
+}
+
+.dpad:active .arrow-left {
+  border-right-color: #ffeb3b;
+}
+
+.dpad:active .arrow-left2 {
+  background-color: #ffeb3b;
+}
+
+/* Buttons */
+
+.buttons-container {
+  bottom: 40px;
+  height: 200px;
+  right: 40px;
+  position: absolute;
+  width: 160px;
+}
+
+.button-backdrop {
+  background: #cfd8dc;
+  border-radius: 5px;
+  height: 60px;
+  position: relative;
+  width: 60px;
+}
+
+.button-backdrop + .button-backdrop {
+  margin-top: 10px;
+}
+
+.button {
+  background: #202020;
+  border-radius: 50px;
+  box-shadow: 0 1px 10px #37474f;
+  height: 50px;
+  left: 5px;
+  position: absolute;
+  top: 5px;
+  width: 50px;
+}
+
+.button:active {
+  background-color: #303030;
+}
+
+.icon {
+  display: inline-block;
+  fill: #f4ff81;
+  height: 30px;
+  width: 30px;
+}
+
+.button .icon {
+  padding: 10px 0 0 10px;
+}
+
+.button:active .icon {
+  fill: #eeff41;
+}
+
+/* Button states */
+
+.music-on .icon-music-off,
+.music-off .icon-music-on,
+.sound-on .icon-sound-off,
+.sound-off .icon-sound-on {
+  display: none;
+}
+
+.icon.icon-music-off,
+.icon.icon-sound-off {
+  fill: #80d8ff;
+}
+
+.button:active .icon.icon-music-off,
+.button:active .icon.icon-sound-off {
+  fill: #40c4ff;
+}
+
+.icon.icon-restart {
+}
+
+.button:active .icon.icon-restart {
+}
+
+.no-restart .restart-container,
+.no-restart .label-restart {
+  display: none;
+}
+
+/* Labels */
+
+.label {
+  color: #f4ff81;
+  left: 360px;
+  position: absolute;
+}
+
+.label-music {
+  top: 55px;
+}
+
+.label-sound {
+  top: 125px;
+}
+
+.label-restart {
+  top: 195px;
+}
+
+/* Label states */
+
+.music-on .label-music-off,
+.music-off .label-music-on,
+.sound-on .label-sound-off,
+.sound-off .label-sound-on {
+  display: none;
+}
+
+.label-music-off,
+.label-sound-off {
+  color: #80d8ff;
+}
+/* Attrbutes*/
+.Container {
+  height: 5vh;
+}
+.Attrbutes {
+  font-size: 12px;
+  text-align: center;
+}
+.CombatMessages {
+  font-size: 12px;
+  text-align: center;
+}
+</style>
